@@ -16,8 +16,9 @@ if (empty($safeAttributes)) {
 echo "<?php\n";
 ?>
 
-use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use <?= $generator->modelClass ?>;
+use yeesoft\usermanagement\components\GhostHtml;
 
 /* @var $this yii\web\View */
 /* @var $model <?= ltrim($generator->modelClass, '\\') ?> */
@@ -26,17 +27,71 @@ use yii\widgets\ActiveForm;
 
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">
 
-    <?= "<?php " ?>$form = ActiveForm::begin(); ?>
+    <?= "<?php \n" ?>
+    $form = ActiveForm::begin([
+            'id' => '<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form',
+            'validateOnBlur' => false,
+        ])
+    ?>
 
-<?php foreach ($generator->getColumnNames() as $attribute) {
-    if (in_array($attribute, $safeAttributes)) {
-        echo "    <?= " . $generator->generateActiveField($attribute) . " ?>\n\n";
-    }
-} ?>
-    <div class="form-group">
-        <?= "<?= " ?>Html::submitButton($model->isNewRecord ? <?= $generator->generateString('Create') ?> : <?= $generator->generateString('Update') ?>, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    <div class="row">
+        <div class="col-md-9">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <?php foreach ($generator->getColumnNames() as $attribute) {
+                        if (in_array($attribute, $safeAttributes)) {
+                            echo "\n                    <?= " . $generator->generateActiveField($attribute) . " ?>\n";
+                        }
+                    } ?>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="record-info">
+                        <div class="form-group clearfix">
+                            <label class="control-label" style="float: left; padding-right: 5px;"><?= "<?= " ?> $model->attributeLabels()['id'] ?>: </label>
+                            <span><?= "<?= " ?> $model->id ?></span>
+                        </div>
+
+                        <div class="form-group">
+                            <?= "<?php " ?> if ($model->isNewRecord): ?>
+                                <?= "<?= " ?>GhostHtml::submitButton('<span class="glyphicon glyphicon-plus-sign"></span> Create',
+                                    ['class' => 'btn btn-success'])
+                                ?>
+                                <?= "<?= " ?>GhostHtml::a('<span class="glyphicon glyphicon-remove"></span> Cancel',
+                                    '../<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>',
+                                    ['class' => 'btn btn-default'])
+                                ?>
+                            <?= "<?php " ?> else: ?>
+                                <?= "<?= " ?>GhostHtml::submitButton('<span class="glyphicon glyphicon-ok"></span> Save',
+                                    ['class' => 'btn btn-primary'])
+                                ?>
+                                <?= "<?= " ?>GhostHtml::a('<span class="glyphicon glyphicon-remove"></span> Delete',
+                                    ['delete', 'id' => $model->id],
+                                    [
+                                    'class' => 'btn btn-default',
+                                    'data' => [
+                                        'confirm' => 'Are you sure you want to delete this item?',
+                                        'method' => 'post',
+                                    ],
+                                ])
+                                ?>
+                            <?= "<?php " ?>endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 
-    <?= "<?php " ?>ActiveForm::end(); ?>
+    <?= "<?php " ?> ActiveForm::end(); ?>
 
 </div>

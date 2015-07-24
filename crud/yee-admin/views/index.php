@@ -8,12 +8,20 @@ use yii\helpers\StringHelper;
 
 $urlParams = $generator->generateUrlParams();
 $nameAttribute = $generator->getNameAttribute();
+$modelClass = StringHelper::basename($generator->modelClass);
+$modelClassId  = Inflector::camel2id(StringHelper::basename($generator->modelClass));
 
 echo "<?php\n";
 ?>
 
+use yii\helpers\Url;
 use yii\helpers\Html;
-use <?= $generator->indexWidgetType === 'grid' ? "yii\\grid\\GridView" : "yii\\widgets\\ListView" ?>;
+use yii\widgets\Pjax;
+use yeesoft\grid\GridView;
+use <?= $generator->modelClass ?>;
+use yeesoft\gridquicklinks\GridQuickLinks;
+use yeesoft\usermanagement\components\GhostHtml;
+use webvimark\extensions\GridPageSize\GridPageSize;
 
 /* @var $this yii\web\View */
 <?= !empty($generator->searchModelClass) ? "/* @var \$searchModel " . ltrim($generator->searchModelClass, '\\') . " */\n" : '' ?>
@@ -22,22 +30,60 @@ use <?= $generator->indexWidgetType === 'grid' ? "yii\\grid\\GridView" : "yii\\w
 $this->title = <?= $generator->generateString(Inflector::pluralize(Inflector::camel2words(StringHelper::basename($generator->modelClass)))) ?>;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-index">
+<div class="<?= $modelClassId ?>-index">
 
-    <h1><?= "<?= " ?>Html::encode($this->title) ?></h1>
-<?php if(!empty($generator->searchModelClass)): ?>
-<?= "    <?php " . ($generator->indexWidgetType === 'grid' ? "// " : "") ?>echo $this->render('_search', ['model' => $searchModel]); ?>
-<?php endif; ?>
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 class="lte-hide-title page-title"><?= "<?= " ?> Html::encode($this->title) ?></h3>
+            <?= "<?= " ?>GhostHtml::a('Add New', ['create'],
+                ['class' => 'btn btn-sm btn-primary'])
+            ?>
+        </div>
+    </div>
 
-    <p>
-        <?= "<?= " ?>Html::a(<?= $generator->generateString('Create ' . Inflector::camel2words(StringHelper::basename($generator->modelClass))) ?>, ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <div class="panel panel-default">
+        <div class="panel-body">
 
-<?php if ($generator->indexWidgetType === 'grid'): ?>
-    <?= "<?= " ?>GridView::widget([
-        'dataProvider' => $dataProvider,
-        <?= !empty($generator->searchModelClass) ? "'filterModel' => \$searchModel,\n        'columns' => [\n" : "'columns' => [\n"; ?>
-            ['class' => 'yii\grid\SerialColumn'],
+            <div class="row">
+                <div class="col-sm-6">
+                    <?= "<?= \n" ?>
+                    /* Uncomment this to activate GridQuickLinks */
+                    /* GridQuickLinks::widget([
+                        'model' => <?= $modelClass ?>::class,
+                        'searchModel' => $searchModel,
+                    ])*/
+                    ?>
+                </div>
+
+                <div class="col-sm-6 text-right">
+                    <?= "<?= " ?> GridPageSize::widget(['pjaxId' => '<?= $modelClassId ?>-grid-pjax']) ?>
+                </div>
+            </div>
+
+            <?= "<?php \n" ?>
+            Pjax::begin([
+                'id' => '<?= $modelClassId ?>-grid-pjax',
+            ])
+            ?>
+
+            <?= "<?= \n" ?>
+            GridView::widget([
+                'id' => '<?= $modelClassId ?>-grid',
+                'dataProvider' => $dataProvider,
+                <?= !empty($generator->searchModelClass) ? '\'filterModel\' => $searchModel,'.PHP_EOL : ''?>
+                'bulkActionOptions' => [
+                    'gridId' => '<?= $modelClassId ?>-grid',
+                    'actions' => [ Url::to(['bulk-delete']) => 'Delete'] //Configure here you bulk actions
+                ],
+                'columns' => [
+                    ['class' => 'yii\grid\CheckboxColumn', 'options' => ['style' => 'width:10px']],
+                    [
+                        'class' => 'yeesoft\grid\columns\TitleActionColumn',
+                        'title' => function(<?= $modelClass ?> $model) {
+                        return Html::a($model->id,
+                                ['view', 'id' => $model->id], ['data-pjax' => 0]);
+                    },
+                    ],
 
 <?php
 $count = 0;
@@ -61,17 +107,13 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
 }
 ?>
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-<?php else: ?>
-    <?= "<?= " ?>ListView::widget([
-        'dataProvider' => $dataProvider,
-        'itemOptions' => ['class' => 'item'],
-        'itemView' => function ($model, $key, $index, $widget) {
-            return Html::a(Html::encode($model-><?= $nameAttribute ?>), ['view', <?= $urlParams ?>]);
-        },
-    ]) ?>
-<?php endif; ?>
+                ],
+            ]);
+            ?>
 
+            <?= "<?php" ?> Pjax::end() ?>
+        </div>
+    </div>
 </div>
+
+

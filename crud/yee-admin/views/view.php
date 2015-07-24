@@ -13,6 +13,7 @@ echo "<?php\n";
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yeesoft\usermanagement\components\GhostHtml;
 
 /* @var $this yii\web\View */
 /* @var $model <?= ltrim($generator->modelClass, '\\') ?> */
@@ -23,22 +24,37 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-view">
 
-    <h1><?= "<?= " ?>Html::encode($this->title) ?></h1>
+    <h3 class="lte-hide-title"><?= "<?= " ?> Html::encode($this->title) ?></h3>
 
-    <p>
-        <?= "<?= " ?>Html::a(<?= $generator->generateString('Update') ?>, ['update', <?= $urlParams ?>], ['class' => 'btn btn-primary']) ?>
-        <?= "<?= " ?>Html::a(<?= $generator->generateString('Delete') ?>, ['delete', <?= $urlParams ?>], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => <?= $generator->generateString('Are you sure you want to delete this item?') ?>,
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+    <div class="panel panel-default">
+        <div class="panel-body">
 
-    <?= "<?= " ?>DetailView::widget([
-        'model' => $model,
-        'attributes' => [
+            <p>
+                <?= "<?= " ?>
+                GhostHtml::a('Edit', ['update', 'id' => $model->id],
+                    ['class' => 'btn btn-sm btn-primary'])
+                ?>
+                <?= "<?= " ?>
+                GhostHtml::a('Delete', ['delete', 'id' => $model->id],
+                    [
+                    'class' => 'btn btn-sm btn-default',
+                    'data' => [
+                        'confirm' => 'Are you sure you want to delete this item?',
+                        'method' => 'post',
+                    ],
+                ])
+                ?>
+                <?= "<?= " ?>
+                GhostHtml::a('Add New', ['create'],
+                    ['class' => 'btn btn-sm btn-primary pull-right'])
+                ?>
+            </p>
+
+
+            <?= "<?= " ?>
+            DetailView::widget([
+                'model' => $model,
+                'attributes' => [
 <?php
 if (($tableSchema = $generator->getTableSchema()) === false) {
     foreach ($generator->getColumnNames() as $name) {
@@ -51,7 +67,11 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
     }
 }
 ?>
-        ],
-    ]) ?>
+                ],
+            ])
+            ?>
+
+        </div>
+    </div>
 
 </div>

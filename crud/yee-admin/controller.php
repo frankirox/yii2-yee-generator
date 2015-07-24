@@ -9,6 +9,7 @@ use yii\helpers\StringHelper;
 /* @var $generator yii\gii\generators\crud\Generator */
 
 $controllerClass = StringHelper::basename($generator->controllerClass);
+$baseControllerClass = StringHelper::basename($generator->baseControllerClass);
 
 echo "<?php\n";
 ?>
@@ -16,12 +17,12 @@ echo "<?php\n";
 namespace <?= StringHelper::dirname(ltrim($generator->controllerClass, '\\')) ?>;
 
 use Yii;
-use yeesoft\base\controllers\admin\BaseController;
+use <?= $generator->baseControllerClass ?>;
 
 /**
  * <?= $controllerClass ?> implements the CRUD actions for Post model.
  */
-class <?= $controllerClass ?> extends BaseController
+class <?= $controllerClass ?> extends <?= $baseControllerClass ?> 
 {
     public $modelClass       = '<?= $generator->modelClass ?>';
     public $modelSearchClass = '<?= $generator->searchModelClass ?>';

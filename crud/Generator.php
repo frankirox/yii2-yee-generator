@@ -32,7 +32,7 @@ class Generator extends \yii\gii\Generator
     public $modelClass;
     public $controllerClass;
     public $viewPath;
-    public $baseControllerClass = 'yii\web\Controller';
+    public $baseControllerClass = 'yeesoft\base\controllers\admin\BaseController';
     public $searchModelClass = '';
 
 
@@ -41,7 +41,7 @@ class Generator extends \yii\gii\Generator
      */
     public function getName()
     {
-        return 'Yee CRUD Generator';
+        return 'Yee Crud Generator';
     }
 
     /**
@@ -49,7 +49,7 @@ class Generator extends \yii\gii\Generator
      */
     public function getDescription()
     {
-        return 'This generator generates a controller and views that implement CRUD (Create, Read, Update, Delete)
+        return 'This generator generates Yee styled controller and views that implement CRUD (Create, Read, Update, Delete)
             operations for the specified data model.';
     }
 
@@ -159,9 +159,6 @@ class Generator extends \yii\gii\Generator
         $viewPath = $this->getViewPath();
         $templatePath = $this->getTemplatePath() . '/views';
         foreach (scandir($templatePath) as $file) {
-            if (empty($this->searchModelClass) && $file === '_search.php') {
-                continue;
-            }
             if (is_file($templatePath . '/' . $file) && pathinfo($file, PATHINFO_EXTENSION) === 'php') {
                 $files[] = new CodeFile("$viewPath/$file", $this->render("views/$file"));
             }
