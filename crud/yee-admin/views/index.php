@@ -80,9 +80,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'class' => 'yeesoft\grid\columns\TitleActionColumn',
                         'title' => function(<?= $modelClass ?> $model) {
-                        return Html::a($model->id,
-                                ['view', 'id' => $model->id], ['data-pjax' => 0]);
-                    },
+                            return Html::a($model->id, ['view', 'id' => $model->id], ['data-pjax' => 0]);
+                        },
                     ],
 
 <?php
