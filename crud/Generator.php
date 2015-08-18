@@ -32,7 +32,7 @@ class Generator extends \yii\gii\Generator
     public $modelClass;
     public $controllerClass;
     public $viewPath;
-    public $baseControllerClass = 'yeesoft\base\controllers\admin\BaseController';
+    public $baseControllerClass = 'yeesoft\controllers\admin\BaseController';
     public $searchModelClass = '';
 
 

@@ -11,9 +11,8 @@ $urlParams = $generator->generateUrlParams();
 echo "<?php\n";
 ?>
 
-use yii\helpers\Html;
 use yii\widgets\DetailView;
-use yeesoft\usermanagement\components\GhostHtml;
+use yeesoft\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model <?= ltrim($generator->modelClass, '\\') ?> */
@@ -31,11 +30,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <p>
                 <?= "<?= " ?>
-                GhostHtml::a('Edit', ['update', 'id' => $model->id],
+                Html::a('Edit', ['update', 'id' => $model->id],
                     ['class' => 'btn btn-sm btn-primary'])
                 ?>
                 <?= "<?= " ?>
-                GhostHtml::a('Delete', ['delete', 'id' => $model->id],
+                Html::a('Delete', ['delete', 'id' => $model->id],
                     [
                     'class' => 'btn btn-sm btn-default',
                     'data' => [
@@ -45,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ])
                 ?>
                 <?= "<?= " ?>
-                GhostHtml::a('Add New', ['create'],
+                Html::a('Add New', ['create'],
                     ['class' => 'btn btn-sm btn-primary pull-right'])
                 ?>
             </p>
