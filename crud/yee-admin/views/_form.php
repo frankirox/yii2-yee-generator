@@ -63,10 +63,10 @@ use yeesoft\helpers\Html;
                         <div class="form-group">
                             <?= "<?php " ?> if ($model->isNewRecord): ?>
                                 <?= "<?= " ?>Html::submitButton('<span class="glyphicon glyphicon-plus-sign"></span> Create',
-                                    ['class' => 'btn btn-success'])
+                                    ['class' => 'btn btn-primary'])
                                 ?>
                                 <?= "<?= " ?>Html::a('<span class="glyphicon glyphicon-remove"></span> Cancel',
-                                    '../<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>',
+                                    ['/<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>/default/index'],
                                     ['class' => 'btn btn-default'])
                                 ?>
                             <?= "<?php " ?> else: ?>
@@ -74,7 +74,7 @@ use yeesoft\helpers\Html;
                                     ['class' => 'btn btn-primary'])
                                 ?>
                                 <?= "<?= " ?>Html::a('<span class="glyphicon glyphicon-remove"></span> Delete',
-                                    ['delete', 'id' => $model->id],
+                                    ['/<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>/default/delete', 'id' => $model->id],
                                     [
                                     'class' => 'btn btn-default',
                                     'data' => [

@@ -20,7 +20,7 @@ use Yii;
 use <?= $generator->baseControllerClass ?>;
 
 /**
- * <?= $controllerClass ?> implements the CRUD actions for Post model.
+ * <?= $controllerClass ?> implements the CRUD actions for <?= $generator->modelClass ?> model.
  */
 class <?= $controllerClass ?> extends <?= $baseControllerClass ?> 
 {

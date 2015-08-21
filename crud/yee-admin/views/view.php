@@ -30,11 +30,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <p>
                 <?= "<?= " ?>
-                Html::a('Edit', ['update', 'id' => $model->id],
+                Html::a('Edit', ['/<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>/default/update', 'id' => $model->id],
                     ['class' => 'btn btn-sm btn-primary'])
                 ?>
                 <?= "<?= " ?>
-                Html::a('Delete', ['delete', 'id' => $model->id],
+                Html::a('Delete', ['/<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>/default/delete', 'id' => $model->id],
                     [
                     'class' => 'btn btn-sm btn-default',
                     'data' => [
@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ])
                 ?>
                 <?= "<?= " ?>
-                Html::a('Add New', ['create'],
+                Html::a('Add New', ['/<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>/default/create'],
                     ['class' => 'btn btn-sm btn-primary pull-right'])
                 ?>
             </p>
