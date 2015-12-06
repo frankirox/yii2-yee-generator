@@ -20,7 +20,7 @@ use yeesoft\grid\GridView;
 use yeesoft\grid\GridQuickLinks;
 use <?= $generator->modelClass ?>;
 use yeesoft\helpers\Html;
-use webvimark\extensions\GridPageSize\GridPageSize;
+use yeesoft\grid\GridPageSize;
 
 /* @var $this yii\web\View */
 <?= !empty($generator->searchModelClass) ? "/* @var \$searchModel " . ltrim($generator->searchModelClass, '\\') . " */\n" : '' ?>
