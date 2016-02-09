@@ -38,13 +38,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                     'class' => 'btn btn-sm btn-default',
                     'data' => [
-                        'confirm' => 'Are you sure you want to delete this item?',
+                        'confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
                         'method' => 'post',
                     ],
                 ])
                 ?>
                 <?= "<?= " ?>
-                Html::a('Add New', ['/<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>/default/create'],
+                Html::a(Yii::t('yee', 'Add New'), ['/<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>/default/create'],
                     ['class' => 'btn btn-sm btn-primary pull-right'])
                 ?>
             </p>

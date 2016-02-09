@@ -34,6 +34,7 @@ class Generator extends \yii\gii\Generator
     public $viewPath;
     public $baseControllerClass = 'yeesoft\controllers\admin\BaseController';
     public $searchModelClass = '';
+    public $messageCategory = 'yee';
 
 
     /**

@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-sm-12">
             <h3 class="lte-hide-title page-title"><?= "<?= " ?> Html::encode($this->title) ?></h3>
-            <?= "<?= " ?>Html::a('Add New', ['/<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>/default/create'], ['class' => 'btn btn-sm btn-primary']) ?>
+            <?= "<?= " ?>Html::a(Yii::t('yee', 'Add New'), ['/<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>/default/create'], ['class' => 'btn btn-sm btn-primary']) ?>
         </div>
     </div>
 

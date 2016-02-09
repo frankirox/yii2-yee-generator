@@ -62,27 +62,18 @@ use yeesoft\helpers\Html;
 
                         <div class="form-group">
                             <?= "<?php " ?> if ($model->isNewRecord): ?>
-                                <?= "<?= " ?>Html::submitButton('<span class="glyphicon glyphicon-plus-sign"></span> Create',
-                                    ['class' => 'btn btn-primary'])
-                                ?>
-                                <?= "<?= " ?>Html::a('<span class="glyphicon glyphicon-remove"></span> Cancel',
-                                    ['/<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>/default/index'],
-                                    ['class' => 'btn btn-default'])
-                                ?>
+                                <?= "<?= " ?>Html::submitButton(Yii::t('yee', 'Create'), ['class' => 'btn btn-primary']) ?>
+                                <?= "<?= " ?>Html::a(Yii::t('yee', 'Cancel'), ['/<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>/default/index'], ['class' => 'btn btn-default']) ?>
                             <?= "<?php " ?> else: ?>
-                                <?= "<?= " ?>Html::submitButton('<span class="glyphicon glyphicon-ok"></span> Save',
-                                    ['class' => 'btn btn-primary'])
-                                ?>
-                                <?= "<?= " ?>Html::a('<span class="glyphicon glyphicon-remove"></span> Delete',
-                                    ['/<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>/default/delete', 'id' => $model->id],
-                                    [
+                                <?= "<?= " ?>Html::submitButton(Yii::t('yee', 'Save'), ['class' => 'btn btn-primary']) ?>
+                                <?= "<?= " ?>Html::a(Yii::t('yee', 'Delete'),
+                                    ['/<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>/default/delete', 'id' => $model->id], [
                                     'class' => 'btn btn-default',
                                     'data' => [
-                                        'confirm' => 'Are you sure you want to delete this item?',
+                                        'confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
                                         'method' => 'post',
                                     ],
-                                ])
-                                ?>
+                                ]) ?>
                             <?= "<?php " ?>endif; ?>
                         </div>
                     </div>
