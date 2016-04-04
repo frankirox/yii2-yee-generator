@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= "<?php \n" ?>
                     /* Uncomment this to activate GridQuickLinks */
                     /* echo GridQuickLinks::widget([
-                        'model' => <?= $modelClass ?>::class,
+                        'model' => <?= $modelClass ?>::className(),
                         'searchModel' => $searchModel,
                     ])*/
                     ?>
