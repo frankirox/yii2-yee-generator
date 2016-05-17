@@ -6,7 +6,7 @@ use yii\helpers\StringHelper;
 /* @var $this yii\web\View */
 /* @var $generator yii\gii\generators\crud\Generator */
 
-/* @var $model \yii\db\ActiveRecord */
+/* @var $model \yeesoft\db\ActiveRecord */
 $model = new $generator->modelClass();
 $safeAttributes = $model->safeAttributes();
 if (empty($safeAttributes)) {
@@ -16,13 +16,13 @@ if (empty($safeAttributes)) {
 echo "<?php\n";
 ?>
 
-use yii\widgets\ActiveForm;
+use yeesoft\widgets\ActiveForm;
 use <?= $generator->modelClass ?>;
 use yeesoft\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model <?= ltrim($generator->modelClass, '\\') ?> */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $form yeesoft\widgets\ActiveForm */
 ?>
 
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-form">

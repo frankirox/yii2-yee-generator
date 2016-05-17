@@ -6,7 +6,7 @@
 namespace yeesoft\generator\crud;
 
 use Yii;
-use yii\db\ActiveRecord;
+use yeesoft\db\ActiveRecord;
 use yii\db\BaseActiveRecord;
 use yii\db\Schema;
 use yii\gii\CodeFile;
@@ -198,7 +198,7 @@ class Generator extends \yii\gii\Generator
                 return $name;
             }
         }
-        /* @var $class \yii\db\ActiveRecord */
+        /* @var $class \yeesoft\db\ActiveRecord */
         $class = $this->modelClass;
         $pk = $class::primaryKey();
 
