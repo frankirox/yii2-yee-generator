@@ -10,13 +10,13 @@ Installation
 Either run
 
 ```
-composer require --prefer-dist yeesoft/yii2-yee-generator "*"
+composer require --prefer-dist yeesoft/yii2-yee-generator "~0.1.0"
 ```
 
 or add
 
 ```
-"yeesoft/yii2-yee-generator": "*"
+"yeesoft/yii2-yee-generator": "~0.1.0"
 ```
 
 to the require section of your `composer.json` file.
